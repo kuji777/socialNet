@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_green_light">#25f792</color>
+    <color name="color_green_medium">#14c40a</color>
+    <color name="color_green_dark">#2a5e45</color>
+    <color name="color_green_darklight">#3a815e</color>
+    <color name="color_green_darklight2">#4ca77a</color>
+    <color name="color_green_background">#0c311f</color>
+    <color name="color_mauve">#c53dcc</color>
+    <color name="color_purple">#b425f7</color>
+
+    <color name="blackColorLightTheme">#030303</color>
+    <color name="blackColorDarkTheme">#030303</color>
+    <color name="whiteColorLightTheme">#ffffff</color>
+    <color name="whiteColorDarkTheme">#ffffff</color>
+    <color name="redColorLightTheme">#FF0000</color>
+    <color name="redColorDarkTheme">#FF0000</color>
+    <color name="blueColorDarkTheme">#0000FF</color>
+    <color name="darkGoldColorLightTheme">#C4A96B</color>
+    <color name="darkGoldColorDarkTheme">#C4A96B</color>
+    <color name="lightGoldColorLightTheme">#BFA059</color>
+    <color name="lightGoldColorDarkTheme">#BFA059</color>
+    <color name="darkGreenColorLightTheme">#61A33A</color>
+    <color name="darkGreenColorDarkTheme">#61A33A</color>
+    <color name="lightGreenColorLightTheme">#74C502</color>
+    <color name="lightGreenColorDarkTheme">#00FF00</color>
+    <color name="lightGreyColorLightTheme">#949494</color>
+    <color name="lightGreyColorDarkTheme">#949494</color>
+    <color name="darkGreyColorLightTheme">#555555</color>
+    <color name="darkGreyColorDarkTheme">#555555</color>
+    <color name="blueGreyColorLightTheme">#787896</color>
+    <color name="blueGreyColorDarkTheme">#787896</color>
+    <color name="openPositionRowBackgroundLightColor">#EAEAEA</color>
+    <color name="openPositionRowBackgroundDarkColor">#20292D</color>
+    <color name="defaultTextColorLightTheme">#3B3B3B</color>
+    <color name="defaultTextColorDarkTheme">#ffffff</color>
+    <color name="defaultHintColorLightTheme">#3B3B3B</color>
+    <color name="defaultHintColorDarkTheme">#9A9A9A</color>
+    <color name="rateTextColorLightTheme">#696969</color>
+    <color name="rateTextColorDarkTheme">#88FFFFFF</color>
+    <color name="quotesTextColorLightTheme">#696969</color>
+    <color name="quotesTextColorDarkTheme">#CCC49A</color>
+    <color name="quotesTextColorDarkThemeWithAlpha">#80CCC49A</color>
+    <color name="settingsTextColorLightTheme">#3B3B3B</color>
+    <color name="settingsTextColorDarkTheme">#A3AAAD</color>
+    <color name="settingsSepColorLightTheme">#BFBFBF</color>
+    <color name="settingsSepColorDarkTheme">#A3AAAD</color>
+    <color name="accountLabelTextColorLightTheme">#20292D</color>
+    <color name="accountLabelTextColorDarkTheme">#FFFFFF</color>
+    <color name="accountValueTextColorLightTheme">#555555</color>
+    <color name="accountValueTextColorDarkTheme">#ffffff</color>
+    <color name="accountBackgroundColorLightTheme">#343F45</color>
+    <color name="accountBackgroundColorDarkTheme">#343F45</color>
+    <color name="defaultBackgroundDarkTheme">#00000000</color>
+    <color name="defaultBackgroundLightTheme">#00000000</color>
+    <color name="defaultHeaderBackgroundDarkTheme">#253337</color>
+    <color name="defaultHeaderBackgroundLightTheme">#ffffff</color>
+    <color name="defaultRowBackgroundLightTheme">#343F45</color>
+    <color name="defaultRowBackgroundDarkTheme">#343F45</color>
+    <color name="defaultRowBackground1">#2D393F</color>
+    <color name="defaultRowBackground2">#324348</color>
+    <color name="defaultSeperatorLightTheme">#ffffff</color>
+    <color name="watchlistpanelSeperatorColorLightTheme">#696969</color>
+    <color name="defaultSeperatorDarkTheme">#696969</color>
+    <color name="watchlistpanelSeperatorColorDarkTheme">#696969</color>
+    <color name="borderGoldDarkTheme">#998652</color>
+    <color name="borderGoldLightTheme">#DFCFAC</color>
+
+    <color name="dialog_color">#BFA059</color>
+    <color name="cancel_all_color">#A2AAAD</color>
+    <color name="defaultWhite">#ffffff</color>
+    <color name="defaultBlack">#000000</color>
+
+    <color name="menu_icon_color">#D1C691</color>
+    <color name="account_creation_label">#A3AAAD</color>
+
+    <color name="textTimeNewsDarkTheme">#A3AAAD</color>
+    <color name="textTimeNewsLightTheme">#A3AAAD</color>
+    <!--new -->
+    <color name="greyColor">#cccccc</color>
+    <color name="color_tab_background">#20292d</color>
+    <color name="color_tab_text_color">#ccc49a</color>
+    <color name="color_active_watchlist">#7ed321</color>
+    <color name="color_border_edittext">#203f45</color>
+    <color name="color_button">#3d5257</color>
+    <color name="color_button_createaccount">#663d5257</color>
+    <color name="color_username_password_login">#99ffffff</color>
+    <color name="color_back_watchlist">#324348</color>
+    <color name="color_watchlist_popup">#3d5156</color>
+    <color name="color_watchlist_popup_2">#3d5156</color>
+
+    <color name="color_search">#33ffffff</color>
+    <color name="color_label_active_popup">#74c503</color>
+
+
+    <!--<color name="background_color">#243236</color>-->
+    <color name="background_color">#253337</color>
+    <color name="back_black_transparent">#10000000</color>
+    <color name="separator_white_transaparent">#18FFFFFF</color>
+    <color name="color_back_contact_us">#324348</color>
+    <color name="color_header_contact_us">#2a393d</color>
+    <color name="color_separator_personalinfo">#40504f</color>
+
+    <color name="color_tab_calendar">#3c5156</color>
+    <color name="color_charts_watchlist">#696969</color>
+    <color name="color_red">#D0021B</color>
+    <color name="color_blue">#4A90E2</color>
+
+    <!--new for bot-->
+    <color name="color_backgroundmessage">#677072</color>
+    <color name="backgroundGoogle">#dc4e41</color>
+    <color name="backgroundLinkedIn">#0077b5</color>
+    <color name="backgroundTwitter">#1d9eee</color>
+    <color name="backgroundFacebook">#3b5998</color>
+    <color name="percentage_process_bg">#354145</color>
+    <color name="percentage_process_filled">#aeb3b4</color>
+
+    <color name="text_color">#222222</color>
+    <color name="text_orange">#ea8e04</color>
+</resources>

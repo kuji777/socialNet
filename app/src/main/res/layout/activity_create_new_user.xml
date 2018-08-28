@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="socialg.com.vyz.socialgaming.CreateNewUSer"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/eddittext_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="First name"/>
+    <EditText
+        android:id="@+id/eddittext_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Last name" />
+    <EditText
+        android:id="@+id/eddittext_pseudo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Pseudo" />
+    <EditText
+        android:id="@+id/eddittext_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Age" />
+    <EditText
+        android:id="@+id/eddittext_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password" />
+    <EditText
+        android:id="@+id/eddittext_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Email" />
+    <EditText
+        android:id="@+id/eddittext_nation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Nationality" />
+
+    <Button
+        android:id="@+id/button_create_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+
+</LinearLayout>
