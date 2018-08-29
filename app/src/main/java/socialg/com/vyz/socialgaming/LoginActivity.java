@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private EditText passwordText;
     /**
-     * Login button
+     * Login button:::::
      */
     private Button buttonLogin;
     /**
