@@ -13,14 +13,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 import socialg.com.vyz.socialgaming.AddFriendActivity;
 import socialg.com.vyz.socialgaming.FriendActivity;
+import socialg.com.vyz.socialgaming.LoginActivity;
 import socialg.com.vyz.socialgaming.ProfileWallActivity;
 import socialg.com.vyz.socialgaming.R;
 import socialg.com.vyz.socialgaming.bean.Friend;
+import socialg.com.vyz.socialgaming.connection.CustomRequest;
+import socialg.com.vyz.socialgaming.connection.DBConnection;
 import socialg.com.vyz.socialgaming.connection.UserInfo;
 
 /**
@@ -40,6 +54,9 @@ public class FriendsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // url to get info
+    private static String url_get_friend_info = "http://"+ LoginActivity.currentIp+"/socialgaming/get_user_details.php";
 
     private LinearLayout profileContainer;
     private Button addFriendButton;
@@ -109,10 +126,43 @@ public class FriendsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 //                    profileContainer.removeView(v);
-                    Intent intent = new Intent(childView.getContext(), FriendActivity.class);
-                    intent.putExtra("id", id);
-                    Log.i("TESTID", "signal : n°" + id);
-                    startActivity(intent);
+
+                    CustomRequest requestFriend = new CustomRequest(Request.Method.GET, url_get_friend_info+"?pid="+id, null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        JSONArray jarrayFriends = response.getJSONArray("user");
+                                        JSONObject json = jarrayFriends.getJSONObject(0);
+
+                                        Gson gson = new GsonBuilder().create();
+                                        // Storing each json item in variable
+                                        Friend friend = gson.fromJson(json.toString(), Friend.class);
+                                        Log.i("TEST_FRIEND", friend.toString());
+                                        Toast.makeText(getActivity(), "Data from "+friend.getPseudo()+" are settled",Toast.LENGTH_SHORT).show();
+
+
+//                                        Intent intent = new Intent(childView.getContext(), FriendActivity.class);
+//                                        Bundle bundle = new Bundle();
+//                                        bundle.putSerializable("friend", friend);
+//                                        intent.putExtras(bundle);
+//                                        Log.i("TESTID", "signal : n°" + id);
+//                                        startActivity(intent);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            // Le code suivant est appelé lorsque Volley n'a pas réussi à récupérer le résultat de la requête
+                        }
+                    });
+                    requestFriend.setTag(this);
+                    // On ajoute la Request au RequestQueue pour la lancer
+                    DBConnection.getInstance(getActivity()).getVolleyRequestQueue().add(requestFriend);
+
                 }
             });
             profileContainer.addView(childView);
@@ -185,10 +235,44 @@ public class FriendsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 //                    profileContainer.removeView(v);
-                    Intent intent = new Intent(childView.getContext(), FriendActivity.class);
-                    intent.putExtra("id", id);
-                    Log.i("TESTID", "signal : n°" + id);
-                    startActivity(intent);
+
+                    Toast.makeText(getActivity(), "REquest Data of "+id+"are settled",Toast.LENGTH_SHORT).show();
+
+                    CustomRequest requestFriend = new CustomRequest(Request.Method.GET, url_get_friend_info+"?pid="+id, null,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        JSONObject json = response.getJSONObject("user");
+//                                        JSONObject json = jarrayFriends.getJSONObject(0);
+
+                                        Gson gson = new GsonBuilder().create();
+                                        // Storing each json item in variable
+                                        Friend friend = gson.fromJson(json.toString(), Friend.class);
+                                        Log.i("TEST_FRIEND", friend.toString());
+                                        Toast.makeText(getActivity(), "Data from "+friend.getPseudo()+" are settled",Toast.LENGTH_SHORT).show();
+
+                                        Intent intent = new Intent(childView.getContext(), FriendActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("friend", friend);
+
+                                        intent.putExtras(bundle);
+                                        Log.i("TESTID", "signal : n°" + id);
+                                        startActivity(intent);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            // Le code suivant est appelé lorsque Volley n'a pas réussi à récupérer le résultat de la requête
+                        }
+                    });
+                    requestFriend.setTag(this);
+                    // On ajoute la Request au RequestQueue pour la lancer
+                    DBConnection.getInstance(getActivity()).getVolleyRequestQueue().add(requestFriend);
                 }
             });
             profileContainer.addView(childView);

@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonCreateAccount;
     private CheckBox rememberMe;
 
-    public static String currentIp = "192.168.0.25";
+    public static String currentIp = "10.33.1.221";
     private static String url_create_product = "http://"+currentIp+"/socialgaming/login.php";
     // JSON Node names
     private static final String TAG_SUCCESS = "success";

@@ -1,10 +1,16 @@
 package socialg.com.vyz.socialgaming.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.security.SecureRandom;
+
 /**
  * Created by Vincent on 11/07/2018.
  */
 
-public class Friend {
+public class Friend implements Serializable{
 
     private String id_user;
     private String first_name;
@@ -72,4 +78,6 @@ public class Friend {
                 ", pseudo='" + pseudo + '\'' +
                 '}';
     }
+
+
 }

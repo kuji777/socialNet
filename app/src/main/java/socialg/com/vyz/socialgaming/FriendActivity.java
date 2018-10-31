@@ -52,8 +52,7 @@ public class FriendActivity extends AppCompatActivity {
 //    ArrayList<HashMap<String, String>> productsList;
     private Friend friend;
 
-    // url to get info
-    private static String url_get_friend_info = "http://"+LoginActivity.currentIp+"/socialgaming/get_user_details.php";
+
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -77,35 +76,11 @@ public class FriendActivity extends AppCompatActivity {
         switcher = findViewById(R.id.button_switcher);
         fragmentFrame = findViewById(R.id.friend_frame_fragment);
 
-        String pid = getIntent().getStringExtra("id");
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        friend = (Friend) bundle.getSerializable("friend");
 
-        CustomRequest requestFriend = new CustomRequest(Request.Method.GET, url_get_friend_info+"?pid="+pid, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jarrayFriends = response.getJSONArray("user");
-                            JSONObject json = jarrayFriends.getJSONObject(0);
-
-                            Gson gson = new GsonBuilder().create();
-                            // Storing each json item in variable
-                            friend = gson.fromJson(json.toString(), Friend.class);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener()
-        {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                // Le code suivant est appelé lorsque Volley n'a pas réussi à récupérer le résultat de la requête
-            }
-        });
-        requestFriend.setTag(this);
-        // On ajoute la Request au RequestQueue pour la lancer
-        DBConnection.getInstance(FriendActivity.this).getVolleyRequestQueue().add(requestFriend);
-
+        title.setText(friend.getPseudo());
 //        productsList = new ArrayList<HashMap<String, String>>();
 //        new LoadAllProducts().execute();
 
