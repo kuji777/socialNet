@@ -97,7 +97,13 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", login);
         params.put("password", password);
 
-        CustomRequest request = new CustomRequest(Request.Method.POST, url_create_product, params,
+        //TODO///////////TEST/////////////
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        //TODO///////////TEST/////////////
+
+
+/*        CustomRequest request = new CustomRequest(Request.Method.POST, url_create_product, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -150,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
         request.setTag(this);
 
 
-        DBConnection.getInstance(LoginActivity.this).getVolleyRequestQueue().add(request);
+        DBConnection.getInstance(LoginActivity.this).getVolleyRequestQueue().add(request);*/
 
     }
 

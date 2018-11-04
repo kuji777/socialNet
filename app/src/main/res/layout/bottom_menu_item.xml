@@ -5,16 +5,18 @@
 
     <item
         android:id="@+id/news_action"
-        android:title="News" />
+        android:title="News"
+        android:icon="@drawable/magazine"/>
 
     <item
         android:id="@+id/groups_action"
         android:title="Groups"
-        android:enabled="true"/>
-    <!--android:icon="@drawable/more"-->
+        android:enabled="true"
+        android:icon="@drawable/community"/>
 
     <item
         android:id="@+id/friends_action"
-        android:title="Friends"/>
+        android:title="Friends"
+        android:icon="@drawable/smile"/>
 
 </menu>
