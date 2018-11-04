@@ -35,15 +35,15 @@ import socialg.com.vyz.socialgaming.bean.Team;
 public class UserInfo {
 
     private String id;
-    private String firstName;
-    private String lastName;
-    private String pseudo;
+    private String first_name;
+    private String last_name;
+    private String username;
     private String age;
     private String password;
     private String email;
     private String nation;
     private String sexe;
-    private String dateCreation;
+    private String signup_date;
 
     private static UserInfo instance = null;
 
@@ -340,27 +340,27 @@ public class UserInfo {
     }
 
     public String getFirstName() {
-        return firstName;
+        return first_name;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.first_name = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return last_name;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.last_name = lastName;
     }
 
     public String getPseudo() {
-        return pseudo;
+        return username;
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setUsername(String pseudo) {
+        this.username = pseudo;
     }
 
     public String getAge() {
@@ -427,16 +427,16 @@ public class UserInfo {
         this.sexe = sexe;
     }
 
-    public void setDateCreation(String dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setSignup_date(String dateCreation) {
+        this.signup_date = dateCreation;
     }
 
     public String getSexe() {
         return sexe;
     }
 
-    public String getDateCreation() {
-        return dateCreation;
+    public String getSignup_date() {
+        return signup_date;
     }
 
     public List<Friend> getFriendRequestLit() {

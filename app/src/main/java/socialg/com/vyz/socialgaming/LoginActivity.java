@@ -47,10 +47,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonCreateAccount;
     private CheckBox rememberMe;
 
-    public static String currentIp = "10.33.1.221";
-    private static String url_create_product = "http://"+currentIp+"/socialgaming/login.php";
+    public static String currentIp = "10.30.212.236:3030";
+    private static String url_create_product = "http://"+currentIp+"/api-sg/v1/users/login";
     // JSON Node names
-    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_SUCCESS = "status";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
         password = passwordText.getText().toString();
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("login", login);
-        params.put("pwd", password);
+        params.put("email", login);
+        params.put("password", password);
 
         CustomRequest request = new CustomRequest(Request.Method.POST, url_create_product, params,
                 new Response.Listener<JSONObject>() {
@@ -109,18 +109,17 @@ public class LoginActivity extends AppCompatActivity {
                             if (success == 1) {
                                 // successfully created product
                                 Toast.makeText(LoginActivity.this,"Successfully logged in",Toast.LENGTH_SHORT).show();
-                                JSONArray jsonUser = response.getJSONArray("user");
-                                JSONObject jsonObject = jsonUser.getJSONObject(0);
+                                JSONObject jsonObject = response.getJSONObject("result");
                                 UserInfo user = UserInfo.getInstance();
-                                user.setId(jsonObject.getString("id_user"));
+                                user.setId(jsonObject.getString("id"));
                                 user.setFirstName(jsonObject.getString("first_name"));
                                 user.setLastName(jsonObject.getString("last_name"));
-                                user.setPseudo(jsonObject.getString("pseudo"));
-                                user.setAge(jsonObject.getString("age"));
+                                user.setUsername(jsonObject.getString("username"));
+//                                user.setAge(jsonObject.getString("age"));
                                 user.setEmail(jsonObject.getString("email"));
-                                user.setNation(jsonObject.getString("natio"));
-                                user.setSexe(jsonObject.getString("sexe"));
-                                user.setDateCreation(jsonObject.getString("date_inscription"));
+//                                user.setNation(jsonObject.getString("natio"));
+//                                user.setSexe(jsonObject.getString("sexe"));
+                                user.setSignup_date(jsonObject.getString("signup_date"));
                                 UserInfo.getInstance().getInfo(LoginActivity.this);
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                 startActivity(intent);

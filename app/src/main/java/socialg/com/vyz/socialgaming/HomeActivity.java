@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
+import socialg.com.vyz.socialgaming.connection.UserInfo;
 import socialg.com.vyz.socialgaming.fragment.FriendsFragment;
 import socialg.com.vyz.socialgaming.fragment.GroupsFragment;
 import socialg.com.vyz.socialgaming.fragment.NewsFragment;
@@ -24,6 +26,7 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
         setContentView(R.layout.activity_home);
 
         mainFrame = findViewById(R.id.main_frame_fragment);
+        ((TextView)findViewById(R.id.username)).setText(UserInfo.getInstance().getPseudo());
 
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         NewsFragment newsFragment = new NewsFragment();
