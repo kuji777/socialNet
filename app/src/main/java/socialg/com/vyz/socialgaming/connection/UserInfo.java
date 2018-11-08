@@ -1,15 +1,11 @@
 package socialg.com.vyz.socialgaming.connection;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,10 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import socialg.com.vyz.socialgaming.CreateNewUSer;
 import socialg.com.vyz.socialgaming.LoginActivity;
 import socialg.com.vyz.socialgaming.bean.Friend;
 import socialg.com.vyz.socialgaming.bean.Group;
+import socialg.com.vyz.socialgaming.bean.Post;
 import socialg.com.vyz.socialgaming.bean.Team;
 
 /**
@@ -51,6 +47,7 @@ public class UserInfo {
     private List<Group> groupList = new ArrayList<Group>();
     private List<Team> teamList = new ArrayList<Team>();
     private List<Friend> friendRequestLit = new ArrayList<Friend>();
+    private List<Post> postList = new ArrayList<Post>();
 
     private static String currentIp = LoginActivity.currentIp;
 
@@ -58,8 +55,9 @@ public class UserInfo {
     private static String url_get_group = "http://"+currentIp+"/socialgaming/liste_jeux_abo.php";
     private static String url_get_team = "http://"+currentIp+"/socialgaming/get_user_teams.php";
     private static String url_get_friend_request = "http://"+currentIp+"/socialgaming/liste_demande_ami.php";
+    private static String url_get_posts = "http://"+currentIp+"/api-sg/v1/posts";
 
-    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_SUCCESS = "status";
 
     Context currentContext;
 
@@ -76,10 +74,13 @@ public class UserInfo {
 
     public void getInfo(Context context) {
         currentContext = context;
-        updateFriends();
-        updateGroup();
-        updateFriendRequest();
+        updatePosts();
+//        updateFriends();
+//        updateGroup();
+//        updateFriendRequest();
     }
+
+
 
     public void updateFriends(){
         friendList.clear();
@@ -182,6 +183,56 @@ public class UserInfo {
 
         // On ajoute la Request au RequestQueue pour la lancer
         DBConnection.getInstance(currentContext).getVolleyRequestQueue().add(requestFriend);
+
+    }
+
+    public void updatePosts(){
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("pid",id);
+
+        CustomRequest requestGroup = new CustomRequest(Request.Method.GET, url_get_posts, params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int success = response.getInt(TAG_SUCCESS);
+                            Log.i("TEST_POSTS","get for "+id +" "+response.toString());
+                            if (success == 1) {
+                                // successfully created product
+
+                                JSONArray jarrayGroups = response.getJSONArray("result");
+                                Gson gson = new GsonBuilder().create();
+
+//                                Log.i("TEST_GROUP","ARRAY GROUTP "+jarrayGroups.toString()+" taille :"+jarrayGroups.length());
+                                for (int i = 0; i < jarrayGroups.length(); i++) {
+                                    JSONObject json = jarrayGroups.getJSONObject(i);
+//                                    Log.i("TEST_GROUP","json "+i+" "+json.toString());
+                                    // Storing each json item in variable
+                                    Post post = gson.fromJson(json.toString(), Post.class);
+                                    Log.i("TEST_GROUP","get "+post.toString());
+                                    // adding each child node to HashMap key => value
+
+                                    // adding HashList to ArrayList
+                                    postList.add(post);
+                                }
+                                // closing this screen
+                            } else {
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                // Le code suivant est appelé lorsque Volley n'a pas réussi à récupérer le résultat de la requête
+            }
+        });
+        requestGroup.setTag(this);
+
+        // On ajoute la Request au RequestQueue pour la lancer
+        DBConnection.getInstance(currentContext).getVolleyRequestQueue().add(requestGroup);
 
     }
 
@@ -401,6 +452,10 @@ public class UserInfo {
 
     public List<Friend> getFriendList() {
         return friendList;
+    }
+
+    public List<Post> getPostList() {
+        return postList;
     }
 
     public void setFriendList(List<Friend> friendList) {

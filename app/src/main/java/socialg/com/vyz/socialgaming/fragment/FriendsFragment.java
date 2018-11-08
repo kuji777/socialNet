@@ -29,6 +29,7 @@ import java.util.List;
 
 import socialg.com.vyz.socialgaming.AddFriendActivity;
 import socialg.com.vyz.socialgaming.FriendActivity;
+import socialg.com.vyz.socialgaming.HomeActivity;
 import socialg.com.vyz.socialgaming.LoginActivity;
 import socialg.com.vyz.socialgaming.ProfileWallActivity;
 import socialg.com.vyz.socialgaming.R;
@@ -60,6 +61,7 @@ public class FriendsFragment extends Fragment {
 
     private LinearLayout profileContainer;
     private Button addFriendButton;
+    private List<Friend> friendList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -95,12 +97,13 @@ public class FriendsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        List<Friend> friendList = UserInfo.getInstance().getFriendList();
+        friendList = ((HomeActivity)getActivity()).friendList;
 
         profileContainer = view.findViewById(R.id.profile_container);
         addFriendButton = view.findViewById(R.id.button_add_friend);
@@ -221,7 +224,7 @@ public class FriendsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         profileContainer.removeAllViews();
-        List<Friend> friendList = UserInfo.getInstance().getFriendList();
+        friendList = ((HomeActivity)getActivity()).friendList;
         Log.i("TestProfiledisplay",String.valueOf(friendList.size()+" amis dans le profil"));
         for (Friend friend : friendList ) {
 

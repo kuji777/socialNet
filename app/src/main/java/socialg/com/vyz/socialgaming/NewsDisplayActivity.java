@@ -1,42 +1,35 @@
 package socialg.com.vyz.socialgaming;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import socialg.com.vyz.socialgaming.bean.Post;
 
 public class NewsDisplayActivity extends AppCompatActivity {
 
     private TextView newsTitle;
     private TextView newsContent;
+    private TextView commentsCount;
+    private TextView likesCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_display_actvitity);
 
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+//        Post post = HomeActivity.getPost(id);
+
         newsTitle = findViewById(R.id.news_title);
         newsContent = findViewById(R.id.news_content);
+        commentsCount = findViewById(R.id.text_comments_count);
+        likesCount = findViewById(R.id.text_likes_count);
 
-        newsContent.setText("Fruit d'une histoire politique longue et mouvementée, la France est une république constitutionnelle unitaire ayant un régime semi-présidentiel. La devise de la République est depuis 1875 « Liberté, Égalité, Fraternité » et son drapeau est constitué des trois couleurs nationales (bleu, blanc, rouge) disposées en trois bandes verticales d'égale largeur. Son hymne national est La Marseillaise10, chant patriotique hérité de la Révolution française. Son principe est : « gouvernement du peuple, par le peuple et pour le peuple ». Elle a pour capitale Paris et pour langue officielle le français depuis 1539, à la place du latin. Ses monnaies sont l'euro depuis 2002 dans la majeure partie du pays et le franc Pacifique dans ses territoires de l'océan Pacifique.\n" +
-                "\n" +
-                "Pays formé pendant l'Antiquité tardive, vingt ans après la chute de l'Empire romain d'occident, la France tire son nom des Francs, peuple germanique qui a institué les premiers fondements de son État sur les bases de la Gaule romaine. C'est au fil des siècles, par des guerres, des mariages politiques et des unions souveraines, que cet État monarchique et catholique va peu à peu constituer autour de lui une véritable fédération de provinces, qui finira par se cristalliser en une nation unique grâce à une politique d'uniformisation administrative et culturelle, portée à son aboutissement par la Révolution française de 1789 et la fin du régime féodalN 7.\n" +
-                "\n" +
-                "Du début du xviie siècle à la première moitié du xxe siècle, elle possède un vaste empire colonial. À partir des années 1950, elle est l'un des acteurs de la construction de l'Union européenne. Troisième puissance nucléaire mondiale, l'un des cinq membres permanents du Conseil de sécurité des Nations unies et membre de l'OTAN, la France est également membre du G7, du G20, de la zone euro, de l'espace Schengen, de la commission de l'océan Indien, de la communauté du Pacifique et abrite le siège du Conseil de l'Europe, du Parlement européen et de l'UNESCO. De ce fait, elle exerce une influence notable en matière politique, économique, militaire et culturelle en Europe et dans le reste du monde.\n" +
-                "\n" +
-                "Seul pays au monde à exercer sa souveraineté sur des territoires répartis sur trois océans et deux continents11,N 8,N 9, elle joue un important rôle géopolitique au niveau mondial, grâce à un réseau d'ambassades et de consulats étendu, le deuxième au monde derrière celui des États-Unis, et elle dispose de bases militaires sur tous les continents. La France possède la deuxième zone économique exclusive (espace maritime) au monde, à laquelle s'ajoute une extension du plateau continental de 579 000 km2 en 201512, et est un des premiers pays du monde pour la diversité de ses milieux maritimes et leur biodiversité13.\n" +
-                "\n" +
-                "La France est, en juillet 2018, la deuxième économie européenne derrière l'Allemagne, la septième économie mondiale par PIB nominal derrière l'Inde14 et, en avril 2016, la neuvième économie mondiale par PIB à parité de pouvoir d'achat15. Malgré un taux de chômage relativement fort, elle affiche un niveau de vie « très élevé » (20e au classement IDH en 2014). Elle figure parmi les leaders mondiaux dans les secteurs de l'agroalimentaire, de l'aéronautique, de l'automobile, des produits de luxe, du tourisme et du nucléaire. Au 1er janvier 2018, la population de la France est d'environ 67,2 millions d'habitants, selon les estimations publiées par l'Insee, dont 65 018 000 dans les régions métropolitaines et 2 169 000 dans les régions ultramarines. Par ailleurs, 608 200 vivent dans les collectivités d'outre-mer et en Nouvelle-Calédonie.\n" +
-                "\n" +
-                "Deuxième pays le plus peuplé de l'Union européenne derrière l'Allemagne, la France est aussi le plus vaste de l'Union européenne et le troisième pays le plus vaste d'Europe16. Sa culture et sa civilisation sont diffusées par les pays francophones à travers le monde, réunis dans l'Organisation internationale de la francophonie. Traditionnellement utilisé comme langue de la diplomatie, le français est la dixième langue maternelle la plus parlée au monde et une des langues ayant la plus grande diffusion internationale. Il est une des six langues officielles et une des deux langues de travail (avec l'anglais) de l'Organisation des Nations unies, l'une des deux langues officielles du Comité international olympique, et langue officielle ou de travail de plusieurs organisations internationales ou régionales. Le français est également l'une des trois langues de travail de l'Union européenne — avec l'allemand et l'anglais."+"Fruit d'une histoire politique longue et mouvementée, la France est une république constitutionnelle unitaire ayant un régime semi-présidentiel. La devise de la République est depuis 1875 « Liberté, Égalité, Fraternité » et son drapeau est constitué des trois couleurs nationales (bleu, blanc, rouge) disposées en trois bandes verticales d'égale largeur. Son hymne national est La Marseillaise10, chant patriotique hérité de la Révolution française. Son principe est : « gouvernement du peuple, par le peuple et pour le peuple ». Elle a pour capitale Paris et pour langue officielle le français depuis 1539, à la place du latin. Ses monnaies sont l'euro depuis 2002 dans la majeure partie du pays et le franc Pacifique dans ses territoires de l'océan Pacifique.\n" +
-                "\n" +
-                "Pays formé pendant l'Antiquité tardive, vingt ans après la chute de l'Empire romain d'occident, la France tire son nom des Francs, peuple germanique qui a institué les premiers fondements de son État sur les bases de la Gaule romaine. C'est au fil des siècles, par des guerres, des mariages politiques et des unions souveraines, que cet État monarchique et catholique va peu à peu constituer autour de lui une véritable fédération de provinces, qui finira par se cristalliser en une nation unique grâce à une politique d'uniformisation administrative et culturelle, portée à son aboutissement par la Révolution française de 1789 et la fin du régime féodalN 7.\n" +
-                "\n" +
-                "Du début du xviie siècle à la première moitié du xxe siècle, elle possède un vaste empire colonial. À partir des années 1950, elle est l'un des acteurs de la construction de l'Union européenne. Troisième puissance nucléaire mondiale, l'un des cinq membres permanents du Conseil de sécurité des Nations unies et membre de l'OTAN, la France est également membre du G7, du G20, de la zone euro, de l'espace Schengen, de la commission de l'océan Indien, de la communauté du Pacifique et abrite le siège du Conseil de l'Europe, du Parlement européen et de l'UNESCO. De ce fait, elle exerce une influence notable en matière politique, économique, militaire et culturelle en Europe et dans le reste du monde.\n" +
-                "\n" +
-                "Seul pays au monde à exercer sa souveraineté sur des territoires répartis sur trois océans et deux continents11,N 8,N 9, elle joue un important rôle géopolitique au niveau mondial, grâce à un réseau d'ambassades et de consulats étendu, le deuxième au monde derrière celui des États-Unis, et elle dispose de bases militaires sur tous les continents. La France possède la deuxième zone économique exclusive (espace maritime) au monde, à laquelle s'ajoute une extension du plateau continental de 579 000 km2 en 201512, et est un des premiers pays du monde pour la diversité de ses milieux maritimes et leur biodiversité13.\n" +
-                "\n" +
-                "La France est, en juillet 2018, la deuxième économie européenne derrière l'Allemagne, la septième économie mondiale par PIB nominal derrière l'Inde14 et, en avril 2016, la neuvième économie mondiale par PIB à parité de pouvoir d'achat15. Malgré un taux de chômage relativement fort, elle affiche un niveau de vie « très élevé » (20e au classement IDH en 2014). Elle figure parmi les leaders mondiaux dans les secteurs de l'agroalimentaire, de l'aéronautique, de l'automobile, des produits de luxe, du tourisme et du nucléaire. Au 1er janvier 2018, la population de la France est d'environ 67,2 millions d'habitants, selon les estimations publiées par l'Insee, dont 65 018 000 dans les régions métropolitaines et 2 169 000 dans les régions ultramarines. Par ailleurs, 608 200 vivent dans les collectivités d'outre-mer et en Nouvelle-Calédonie.\n" +
-                "\n" +
-                "Deuxième pays le plus peuplé de l'Union européenne derrière l'Allemagne, la France est aussi le plus vaste de l'Union européenne et le troisième pays le plus vaste d'Europe16. Sa culture et sa civilisation sont diffusées par les pays francophones à travers le monde, réunis dans l'Organisation internationale de la francophonie. Traditionnellement utilisé comme langue de la diplomatie, le français est la dixième langue maternelle la plus parlée au monde et une des langues ayant la plus grande diffusion internationale. Il est une des six langues officielles et une des deux langues de travail (avec l'anglais) de l'Organisation des Nations unies, l'une des deux langues officielles du Comité international olympique, et langue officielle ou de travail de plusieurs organisations internationales ou régionales. Le français est également l'une des trois langues de travail de l'Union européenne — avec l'allemand et l'anglais.");
+//        newsTitle.setText("Created by "+post.getAdded_by());
+//        newsContent.setText(post.getBody());
+//        likesCount.setText("Comments("+post.getLikes()+")");
     }
 }

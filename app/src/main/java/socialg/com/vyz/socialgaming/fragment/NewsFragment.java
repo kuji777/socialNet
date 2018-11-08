@@ -1,5 +1,7 @@
 package socialg.com.vyz.socialgaming.fragment;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,11 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Map;
+
+import socialg.com.vyz.socialgaming.HomeActivity;
 import socialg.com.vyz.socialgaming.NewsDisplayActivity;
 import socialg.com.vyz.socialgaming.R;
 import socialg.com.vyz.socialgaming.bean.News;
+import socialg.com.vyz.socialgaming.bean.Post;
+import socialg.com.vyz.socialgaming.connection.UserInfo;
+import socialg.com.vyz.socialgaming.event.NewsListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +34,7 @@ import socialg.com.vyz.socialgaming.bean.News;
  * Use the {@link NewsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements NewsListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,6 +44,7 @@ public class NewsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private LinearLayout newsContainer;
+    private RelativeLayout loading_panel;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,6 +77,7 @@ public class NewsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        ((HomeActivity)getActivity()).addNewsListener(this);
     }
 
     @Override
@@ -74,34 +86,12 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
-        //Friend test
-        News news= new News();
-        news.setTitle("Une pincée d'infos pour Yo-Kai Watch 4");
-        news.setContent("Malgré un évident essoufflement après l'indécent succès du deuxième épisode, Yo-Kai Watch reste encore le poids lourd de Level-5 : Yo-Kai Watch 3, ça reste environ 2,5 millions de ventes au Japon (toutes versions confondues) et le spin-off Blasters 2 a récemment tapé le demi-million.\n" +
-                "\n" +
-                "Pour cela qu'il va falloir surveiller les effets du futur Yo-Kai Watch 4 pour la Switch, même si le titre risque finalement de rater les fêtes, la sortie passant de « 2018 » à « cet hiver ».\n" +
-                "\n" +
-                "Le magazine CoroCoro apporte quelques indications en déclarant que cet épisode jouera cette fois la carte des voyages dans le temps et entre les univers, expliquant un peu le premier teaser diffusé il y a peu (voir ci-dessous) et selon les sources de Gematsu, le rendu devrait être encore meilleur que ce qu'aurait dû être la licence avant d'être transposée sur 3DS.");
-
         newsContainer = view.findViewById(R.id.news_container);
-        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        loading_panel = view.findViewById(R.id.loading_panel);
 
-        final LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.single_news, null);
-        ((TextView) childView.findViewById(R.id.news_title)).setText(news.getTitle());
-        ((TextView) childView.findViewById(R.id.news_content)).setText(news.getContent());
+//        fillPostsViews();
 
-        final int id = news.getId();
-        childView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newsContainer.removeView(v);
-                Intent intent = new Intent(childView.getContext(),NewsDisplayActivity.class);
-                intent.putExtra("id",id);
-                Log.i("TESTID","signal : n°"+id);
-                startActivity(intent);
-            }
-        });
-        newsContainer.addView(childView);
+
         return view;
     }
 
@@ -109,6 +99,39 @@ public class NewsFragment extends Fragment {
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    private void fillPostsViews(){
+
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getApplicationContext().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        for (Map.Entry<Integer,Post> postEntry : ((HomeActivity)getActivity()).getPostList().entrySet() ) {
+
+            Post post = postEntry.getValue();
+
+            final LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.single_news, null);
+            ((TextView) childView.findViewById(R.id.news_title)).setText("created by " + post.getAdded_by());
+            ((TextView) childView.findViewById(R.id.news_content)).setText(post.getBody());
+            ((TextView) childView.findViewById(R.id.text_comments_count)).setText(post.getBody());
+            ((TextView) childView.findViewById(R.id.text_likes_count)).setText("Likes("+post.getLikes()+")");
+
+            final int id = post.getId();
+            childView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    newsContainer.removeView(v);
+//                    Intent intent = new Intent(childView.getContext(), NewsDisplayActivity.class);
+//                    intent.putExtra("id", id);
+//                    Log.i("TESTID", "post n°" + id);
+//                    startActivity(intent);
+                    NewsDisplayFragment newsDisplayFragment = new NewsDisplayFragment();
+                    Bundle args = new Bundle();
+                    args.putInt("id",id);
+                    newsDisplayFragment.setArguments(args);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame_fragment,newsDisplayFragment,null).addToBackStack(null).commit();
+                }
+            });
+            newsContainer.addView(childView);
         }
     }
 
@@ -124,9 +147,22 @@ public class NewsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((HomeActivity)getActivity()).updatePosts();
+
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onNewsResult() {
+        loading_panel.setVisibility(View.GONE);
+        fillPostsViews();
     }
 
     /**

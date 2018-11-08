@@ -6,48 +6,124 @@
     android:layout_height="match_parent"
     tools:context="socialg.com.vyz.socialgaming.CreateNewUSer"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Creation"
+        android:gravity="center"
+        android:textSize="25dp"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
 
+    android:layout_marginLeft="25dp">
     <EditText
         android:id="@+id/eddittext_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="First name"/>
+    <TextView
+        android:id="@+id/fname_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="name must be between 2 and 25 letters"
+        android:visibility="gone"/>
     <EditText
         android:id="@+id/eddittext_last_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Last name" />
+    <TextView
+        android:id="@+id/lname_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="name must be between 2 and 25 letters"
+        android:visibility="gone"/>
     <EditText
         android:id="@+id/eddittext_pseudo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Pseudo" />
+        android:hint="Pseudo"
+        android:textColorHint="@color/darkGreenColorDarkTheme"/>
     <EditText
         android:id="@+id/eddittext_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Age" />
+        android:hint="Age"
+        android:textColorHint="@color/darkGreenColorDarkTheme"/>
     <EditText
         android:id="@+id/eddittext_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Password" />
+    <TextView
+        android:id="@+id/pwd_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="password must be over 5 alpha numeric characters"
+        android:visibility="gone"/>
+    <EditText
+        android:id="@+id/eddittext_password_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password check" />
+    <TextView
+        android:id="@+id/pwd_check_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="not the same password"
+        android:visibility="gone"/>
     <EditText
         android:id="@+id/eddittext_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Email" />
+    <TextView
+        android:id="@+id/email_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="email not correct"
+        android:visibility="gone"/>
+    <TextView
+        android:id="@+id/email_exist_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="email already used"
+        android:visibility="gone"/>
+    <EditText
+        android:id="@+id/eddittext_email_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Email check" />
+    <TextView
+        android:id="@+id/email_check_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/redColorDarkTheme"
+        android:text="not the same email"
+        android:visibility="gone"/>
     <EditText
         android:id="@+id/eddittext_nation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Nationality" />
+        android:hint="Nationality"
+        android:textColorHint="@color/darkGreenColorDarkTheme"/>
 
     <Button
         android:id="@+id/button_create_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit"/>
+        android:text="Submit"
+        android:layout_gravity="center"/>
+</LinearLayout>
 
 
 </LinearLayout>

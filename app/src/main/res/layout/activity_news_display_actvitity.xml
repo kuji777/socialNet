@@ -22,9 +22,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:layout_weight="4">
         <TextView
             android:id="@+id/news_content"
             android:layout_width="match_parent"
@@ -32,5 +33,30 @@
             android:textColor="@color/whiteColorDarkTheme"
             />
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/text_comments_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Comments()"
+            android:gravity="left"
+            android:textColor="@color/color_blue"
+            android:paddingLeft="15dp"/>
+        <TextView
+            android:id="@+id/text_likes_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Likes()"
+            android:gravity="right"
+            android:paddingRight="15dp"
+            android:textColor="@color/color_blue"/>
+    </LinearLayout>
 
 </LinearLayout>

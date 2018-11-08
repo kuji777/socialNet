@@ -46,6 +46,7 @@ public class AddFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
 
+
         searchFriendButton = findViewById(R.id.button_search_friend);
         friendPseudoText = findViewById(R.id.search_friend_name);
         friendViewContainer = findViewById(R.id.friend_view_container);
