@@ -1,5 +1,8 @@
 package socialg.com.vyz.socialgaming.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Vincent on 04/11/2018.
  */
@@ -14,6 +17,8 @@ public class Post {
     private String date_added;
     private String user_closed;
     private String deleted;
+
+    private CommentList comments = null;
 
     public Post(){
 
@@ -92,6 +97,14 @@ public class Post {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public CommentList getComments(){
+        return comments;
+    }
+
+    public void setComments(CommentList comments){
+        this.comments = comments;
     }
 
     @Override

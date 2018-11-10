@@ -32,6 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import socialg.com.vyz.socialgaming.bean.Comment;
+import socialg.com.vyz.socialgaming.bean.CommentList;
 import socialg.com.vyz.socialgaming.bean.Friend;
 import socialg.com.vyz.socialgaming.bean.Group;
 import socialg.com.vyz.socialgaming.bean.Post;
@@ -39,6 +41,7 @@ import socialg.com.vyz.socialgaming.bean.Team;
 import socialg.com.vyz.socialgaming.connection.CustomRequest;
 import socialg.com.vyz.socialgaming.connection.DBConnection;
 import socialg.com.vyz.socialgaming.connection.UserInfo;
+import socialg.com.vyz.socialgaming.event.CommentsListener;
 import socialg.com.vyz.socialgaming.event.NewsListener;
 import socialg.com.vyz.socialgaming.fragment.FriendsFragment;
 import socialg.com.vyz.socialgaming.fragment.GroupsFragment;
@@ -58,15 +61,10 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
     private String sexe;
     private String signup_date;
 
-//    private static UserInfo instance = null;
+    //private static UserInfo instance = null;
     private static HomeActivity instance = null;
 
-    public  List<Friend> friendList = new ArrayList<Friend>();
-    private List<Group> groupList = new ArrayList<Group>();
-    private List<Team> teamList = new ArrayList<Team>();
-    private static List<Friend> friendRequestLit = new ArrayList<Friend>();
-    private HashMap<Integer,Post> postHashMap = new HashMap<Integer,Post>();
-
+    //Connection Data
     private static String currentIp = LoginActivity.currentIp;
 
     private static String url_get_friend = "http://"+currentIp+"/socialgaming/liste_amis.php";
@@ -74,13 +72,27 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
     private static String url_get_team = "http://"+currentIp+"/socialgaming/get_user_teams.php";
     private static String url_get_friend_request = "http://"+currentIp+"/socialgaming/liste_demande_ami.php";
     private static String url_get_posts = "http://"+currentIp+"/api-sg/v1/posts";
+    private static String url_get_comments = "http://"+currentIp+"/api-sg/v1/comments";
 
     private static final String TAG_SUCCESS = "status";
 
-    private List<NewsListener> newsListeners = new ArrayList<NewsListener>();
+    //Data collections
+    public  List<Friend> friendList = new ArrayList<Friend>();
+    private List<Group> groupList = new ArrayList<Group>();
+    private List<Team> teamList = new ArrayList<Team>();
+    private static List<Friend> friendRequestLit = new ArrayList<Friend>();
+    private HashMap<Integer,Post> postHashMap = new HashMap<Integer,Post>();
 
+    //Listener collections
+    private List<NewsListener> newsListeners = new ArrayList<NewsListener>();
+    private List<CommentsListener> commentsListeners = new ArrayList<CommentsListener>();
+
+    //HomeActivity Layout elements
     private FrameLayout mainFrame;
     private BottomNavigationView bottomMenu;
+
+    //Activity variables
+    private boolean viewOpened = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +147,7 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
     @Override
     protected void onResume() {
         super.onResume();
-
     }
-
 
     public void getInfo() {
         updatePosts();
@@ -204,8 +214,6 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
         };
         requestFriend.setTag(this);
 
-
-
         // On ajoute la Request au RequestQueue pour la lancer
         DBConnection.getInstance(this).getVolleyRequestQueue().add(requestFriend);
 
@@ -240,6 +248,57 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
                             } else {
                                 Log.i("POSTS" , response.getString("result"));
                             }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                // Le code suivant est appelé lorsque Volley n'a pas réussi à récupérer le résultat de la requête
+            }
+        });
+        requestGroup.setTag(this);
+
+        // On ajoute la Request au RequestQueue pour la lancer
+        DBConnection.getInstance(this).getVolleyRequestQueue().add(requestGroup);
+
+    }
+
+    public void getComments(final int postId){
+        CustomRequest requestGroup = new CustomRequest(Request.Method.GET, url_get_comments+"/"+postId, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int success = response.getInt(TAG_SUCCESS);
+                            CommentList commentList = new CommentList();
+
+                            if (success == 1) {
+
+                                JSONArray jarrayGroups = response.getJSONArray("result");
+                                Gson gson = new GsonBuilder().create();
+
+                                for (int i = 0; i < jarrayGroups.length(); i++) {
+                                    JSONObject json = jarrayGroups.getJSONObject(i);
+                                    // Storing each json item in variable
+                                    Comment comment = gson.fromJson(json.toString(), Comment.class);
+                                    commentList.addComment(comment);
+                                    Log.i("TEST_COMMENT","json "+i+" "+comment.toString());
+//                                    postHashMap.put(comment.getId(),comment);
+                                }
+                                postHashMap.get(postId).setComments(commentList);
+                                for(CommentsListener commentListener : commentsListeners){
+                                    commentListener.onCommentsResult(postId,commentList);
+                                }
+                            } else {
+                                Log.i("COMMENT" , response.getString("message"));
+                                for(CommentsListener commentListener : commentsListeners){
+                                    commentListener.onCommentsResult(postId,commentList);
+                                }
+                            }
+                            postHashMap.get(postId).setComments(commentList);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -408,6 +467,8 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
         newsListeners.add(newsListener);
     }
 
+    public void addCommentsListener(CommentsListener commentsListener){commentsListeners.add(commentsListener);}
+
     public Post getPost(int id){
         return postHashMap.get(id);
     }
@@ -534,27 +595,40 @@ public class HomeActivity extends AppCompatActivity implements FriendsFragment.O
 
     }
 
+    public void viewDisplayed(){
+        viewOpened = true;
+    }
+
+    public void viewClosed(){
+        viewOpened = false;
+    }
+
     @Override
     public void onBackPressed() {
-        View view = getLayoutInflater().inflate(R.layout.custom_dialog, null);
-        final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(view)
-                .create();
-        Button yes_btn = (Button)view.findViewById(R.id.yes_button);
-        yes_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        Button no_btn = (Button)view.findViewById(R.id.no_button);
-        no_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        if(viewOpened){
+            super.onBackPressed();
+            viewClosed();
+        }else {
+            View view = getLayoutInflater().inflate(R.layout.custom_dialog, null);
+            final AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setView(view)
+                    .create();
+            Button yes_btn = (Button) view.findViewById(R.id.yes_button);
+            yes_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            Button no_btn = (Button) view.findViewById(R.id.no_button);
+            no_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 }

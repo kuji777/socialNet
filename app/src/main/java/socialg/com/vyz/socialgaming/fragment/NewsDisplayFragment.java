@@ -31,8 +31,7 @@ public class NewsDisplayFragment  extends android.support.v4.app.Fragment{
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private LinearLayout newsContainer;
-    private RelativeLayout loading_panel;
+    private RelativeLayout loading_comments_panel;
 
     private NewsFragment.OnFragmentInteractionListener mListener;
 

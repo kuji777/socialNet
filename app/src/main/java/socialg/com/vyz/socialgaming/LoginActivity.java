@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonCreateAccount;
     private CheckBox rememberMe;
 
-    public static String currentIp = "192.168.24.102:3030";
+    public static String currentIp = "192.168.0.25:3030";
     private static String url_create_product = "http://"+currentIp+"/api-sg/v1/users/login";
     // JSON Node names
     private static final String TAG_SUCCESS = "status";
