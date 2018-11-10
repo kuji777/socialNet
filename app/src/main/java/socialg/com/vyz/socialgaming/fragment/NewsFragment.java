@@ -152,8 +152,6 @@ public class NewsFragment extends Fragment implements NewsListener , CommentsLis
                             Log.i("COM_Ask", "Request sent for post " + post.getId());
                             ((HomeActivity) getActivity()).getComments(post.getId());
                         }
-//                        else
-//                            fillCommentsView(post.getComments(),comments_layout);
                     }else{
                         if(openedView == post.getId()) {
                             comments_layout.setVisibility(View.GONE);
