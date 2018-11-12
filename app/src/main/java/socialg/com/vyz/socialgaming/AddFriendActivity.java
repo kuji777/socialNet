@@ -69,7 +69,7 @@ public class AddFriendActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         Toast.makeText(AddFriendActivity.this,"Request successfully refused ~",Toast.LENGTH_SHORT).show();
-                                        UserInfo.getInstance().updateFriendRequest();
+//                                        UserInfo.getInstance().updateFriendRequest();
                                     }
                                 }, new Response.ErrorListener()
                         {
@@ -93,8 +93,8 @@ public class AddFriendActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(JSONObject response) {
                                         Toast.makeText(AddFriendActivity.this,friend.getPseudo()+" and you are now friends ~",Toast.LENGTH_SHORT).show();
-                                        UserInfo.getInstance().updateFriendRequest();
-                                        UserInfo.getInstance().updateFriends();
+//                                        UserInfo.getInstance().updateFriendRequest();
+//                                        UserInfo.getInstance().updateFriends();
                                     }
                                 }, new Response.ErrorListener()
                         {
@@ -157,13 +157,13 @@ public class AddFriendActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(View v) {
                                                             friendViewContainer.removeView(v);
-                                                            UserInfo.getInstance().updateFriends();
+//                                                            UserInfo.getInstance().updateFriends();
                                                             CustomRequest requestFriend = new CustomRequest(Request.Method.GET, url_send_request+"?id_user="+UserInfo.getInstance().getId()+"&id_user_invite="+friend.getId_user(), null,
                                                                     new Response.Listener<JSONObject>() {
                                                                         @Override
                                                                         public void onResponse(JSONObject response) {
                                                                             Toast.makeText(AddFriendActivity.this,"Request successfully sent to "+friend.getPseudo()+" ~",Toast.LENGTH_SHORT).show();
-                                                                            UserInfo.getInstance().updateFriendRequest();
+//                                                                            UserInfo.getInstance().updateFriendRequest();
                                                                         }
                                                                     }, new Response.ErrorListener()
                                                             {
@@ -207,6 +207,6 @@ public class AddFriendActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        UserInfo.getInstance().updateFriendRequest();
+//        UserInfo.getInstance().updateFriendRequest();
     }
 }

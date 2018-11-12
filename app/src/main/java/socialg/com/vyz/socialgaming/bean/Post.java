@@ -107,6 +107,9 @@ public class Post {
         this.comments = comments;
     }
 
+    public void addComments(Comment comment){
+        this.comments = comments;
+    }
     @Override
     public String toString() {
         return "Post{" +

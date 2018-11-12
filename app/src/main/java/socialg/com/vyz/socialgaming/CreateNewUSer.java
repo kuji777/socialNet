@@ -264,7 +264,7 @@ public class CreateNewUSer extends AppCompatActivity {
 
     private boolean fnameTest() {
         String text = inputFirstName.getText().toString();
-        if(text.length() < 3 || text.length() > 26){
+        if(text.length() < 2 || text.length() > 26){
             fname_warning.setVisibility(View.VISIBLE);
             inputFirstName.startAnimation(shake);
             return false;

@@ -1,6 +1,7 @@
 package socialg.com.vyz.socialgaming.bean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,22 +10,26 @@ import java.util.List;
 
 public class CommentList {
 
-    private List<Comment> comments = new ArrayList<Comment>();
+    private HashMap<Integer,Comment> comments = new HashMap<Integer,Comment> ();
 
     public CommentList(){
 
     }
 
-    public List<Comment> getComments(){
+    public HashMap<Integer,Comment> getComments(){
         return comments;
     }
 
-    public void addComment(Comment comment){
-        comments.add(comment);
+    public Comment getComment(Integer num){
+        return comments.get(num);
     }
 
-    public void removeComment(Comment comment){
-        comments.remove(comment);
+    public void addComment(int postId, Comment comment){
+        comments.put(postId,comment);
+    }
+
+    public void removeComment(int postId){
+        comments.remove(postId);
     }
 
 

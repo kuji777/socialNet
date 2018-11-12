@@ -99,7 +99,7 @@
 
     <!--<color name="background_color">#243236</color>-->
     <color name="background_color">#253337</color>
-    <color name="back_black_transparent">#10000000</color>
+    <color name="back_black_transparent">#00000000</color>
     <color name="separator_white_transaparent">#18FFFFFF</color>
     <color name="color_back_contact_us">#324348</color>
     <color name="color_header_contact_us">#2a393d</color>
